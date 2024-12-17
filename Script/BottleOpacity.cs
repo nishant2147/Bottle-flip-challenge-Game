@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class BottleOpacity : MonoBehaviour
@@ -9,6 +10,7 @@ public class BottleOpacity : MonoBehaviour
     public Sprite bottleSprite;
     public GameObject bottlePrefabSprite;
     private bool panelWasClosed = true;
+
 
     private void Awake()
     {

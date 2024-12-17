@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8450134696163436501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2, y: -2.5, z: 0}
+  m_LocalPosition: {x: -1.2, y: -2.83, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -129,11 +129,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bottle: {fileID: 3127566421660597448}
   bottleRigidbody: {fileID: 8752174046328113158}
-  flipForce: 12
-  rotationSpeed: 4.5
+  flipForce: 30
+  rotationSpeed: 5
   landingArea: {fileID: 0}
+  currentBounceCount: 0
   canFlip: 1
-  edgeCollider: {fileID: 0}
+  hasLandedSuccessfully: 0
+  edgeCollider: {fileID: 8898101778115922576}
 --- !u!61 &9155061355721265712
 BoxCollider2D:
   m_ObjectHideFlags: 0

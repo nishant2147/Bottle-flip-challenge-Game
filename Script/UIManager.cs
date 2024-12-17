@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,11 +16,11 @@ public class UIManager : MonoBehaviour
 
     public Vector3 startPosition;
 
-    /*private int score = 0;
+    private int score = 0;
     public static int highScore = 0;
 
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI highScoreText;*/
+    public TextMeshProUGUI scoreText, PlayerPanelscoreText;
+    public TextMeshProUGUI highScoreText;
 
     private void Awake()
     {
@@ -27,9 +28,9 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
-        /*highScore = PlayerPrefs.GetInt("Best", 0);
-        highScoreText.text = "Best " + highScore.ToString();
-        UpdateScoreText();*/
+        highScore = PlayerPrefs.GetInt("Best", 0);
+        highScoreText.text = highScore.ToString();
+        UpdateScoreText();
         panelmanage(HOMEPANEL);
 
     }
@@ -73,7 +74,7 @@ public class UIManager : MonoBehaviour
     {
         panelmanage(PLAYPANEL);
         playersActive(true);
-        Debug.Log("Play");
+        //Debug.Log("Play");
     }
 
     public void Home_Btn()
@@ -98,27 +99,28 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    /* public void AddScore(int points)
-     {
-         score += points;
-         UpdateScoreText();
+    public void AddScore(int points)
+    {
+        score += points;
+        UpdateScoreText();
 
-         if (score > highScore)
-         {
-             highScore = score;
-             highScoreText.text = "Best " + highScore.ToString();
-             PlayerPrefs.SetInt("Best", highScore);
-         }
-     }
-     public void ResetScore()
-     {
-         score = 0;
-         UpdateScoreText();
-     }
-     void UpdateScoreText()
-     {
-         scoreText.text = "" + score.ToString();
-     }*/
+        if (score > highScore)
+        {
+            highScore = score;
+            highScoreText.text = " " + highScore.ToString();
+            PlayerPrefs.SetInt("Best", highScore);
+        }
+    }
+    public void ResetScore()
+    {
+        score = 0;
+        UpdateScoreText();
+    }
+    void UpdateScoreText()
+    {
+        scoreText.text = "0" + score.ToString();
+        PlayerPanelscoreText.text = "0" + score.ToString();
+    }
     public void btnRestart()
     {
         ClearGameObjects();
@@ -127,7 +129,7 @@ public class UIManager : MonoBehaviour
         {
             BottleFlip.Instance.bottle.position = startPosition;
             var rb = BottleFlip.Instance.bottle.GetComponent<Rigidbody2D>();
-            
+
 
             if (rb != null)
             {

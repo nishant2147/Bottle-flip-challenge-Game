@@ -64,9 +64,9 @@ public class ObstacleSpawner : MonoBehaviour
 
     public GameObject[] obstaclePrefab;
     public Transform[] emptyPositions;
-    public LayerMask bottleLayer; 
+    public LayerMask bottleLayer;
 
-    private GameObject currentObstacle;
+    public GameObject currentObstacle;
 
     void Start()
     {
@@ -75,15 +75,41 @@ public class ObstacleSpawner : MonoBehaviour
 
     public void SpawnObstacle()
     {
-        if (emptyPositions.Length > 0)
+        if (BottleFlip.Instance != null)
         {
-            int index = Random.Range(0, emptyPositions.Length);
-            currentObstacle = Instantiate(obstaclePrefab[Random.Range(0, obstaclePrefab.Length)],
-                emptyPositions[index].position, Quaternion.identity);
+            Vector3 bottlePosition = BottleFlip.Instance.bottle.position;
+
+            float distance = 0f;
+            Vector3 oppositePosition = new Vector3(-bottlePosition.x, bottlePosition.y, bottlePosition.z);
+
+            Collider2D hit = Physics2D.OverlapCircle(oppositePosition, 0.5f, bottleLayer);
+            if (hit == null)
+            {
+                /*if (currentObstacle != null)
+                {
+                    HandleObstacle();
+                }*/
+                currentObstacle = Instantiate(obstaclePrefab[Random.Range(0, obstaclePrefab.Length)], oppositePosition + Vector3.right * distance, Quaternion.identity);
+            }
+            else
+            {
+                Debug.LogWarning("Obstacle cannot spawn in the opposite position (collision detected).");
+            }
         }
         else
         {
-            Debug.LogWarning("No empty positions available to spawn obstacles.");
+            Debug.LogWarning("BottleFlip.Instance is null.");
+        }
+    }
+    public void HandleObstacle()
+    {
+        if (currentObstacle != null)
+        {
+            Destroy(currentObstacle);
+        }
+        else
+        {
+            SpawnObstacle();
         }
     }
 
@@ -91,7 +117,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         if (emptyPositions.Length >= 1)
         {
-            //Destroy(currentObstacle);
+            Destroy(currentObstacle);
 
             int index1 = Random.Range(0, emptyPositions.Length);
             int index2 = Random.Range(0, emptyPositions.Length);
